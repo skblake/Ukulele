@@ -7,6 +7,7 @@ public class TuningManager : MonoBehaviour
     public float currentSpriteIndexSmooth;
     public int tuningVariable = 1;
     public List<GameObject> keys;
+    public List<GameObject> strings;
 
     void Start()
     {
@@ -15,10 +16,15 @@ public class TuningManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            strum();
+        } else if (Input.GetKeyDown(KeyCode.Return)) {
+            strumAll();
+        }
 
     }
 
-    public float smoothIndex(int currentSpriteIndex) {
+    /*public float smoothIndex(int currentSpriteIndex) {
         currentSpriteIndexSmooth += Input.GetAxis("Mouse ScrollWheel") 
             * Time.deltaTime * tuningVariable;
         if (currentSpriteIndexSmooth > 4) {
@@ -27,7 +33,7 @@ public class TuningManager : MonoBehaviour
             return 4;
         }
         return currentSpriteIndex;
-    }
+    }*/
 
     //selects the key # passed in, deselects the others    
     public void selectKey(int keyNum)
@@ -38,5 +44,13 @@ public class TuningManager : MonoBehaviour
         }
         keys[keyNum].GetComponent<TuningKey3D>().selected = true;
 
+    }
+
+    void strum() {
+        Debug.Log("Strum");
+    }
+
+    void strumAll() {
+        Debug.Log("Strum all");
     }
 }
