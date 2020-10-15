@@ -16,6 +16,7 @@ public class TuningManager : MonoBehaviour
 
     void Update()
     {
+        /////////////////////////////// CONTROLS /////////////////////////////////
         if (Input.GetKeyDown(KeyCode.Space)) {
             strum();
         } else if (Input.GetKeyDown(KeyCode.Return)) {
@@ -23,17 +24,6 @@ public class TuningManager : MonoBehaviour
         }
 
     }
-
-    /*public float smoothIndex(int currentSpriteIndex) {
-        currentSpriteIndexSmooth += Input.GetAxis("Mouse ScrollWheel") 
-            * Time.deltaTime * tuningVariable;
-        if (currentSpriteIndexSmooth > 4) {
-            return 0;
-        } else if (currentSpriteIndexSmooth < 0) {
-            return 4;
-        }
-        return currentSpriteIndex;
-    }*/
 
     //selects the key # passed in, deselects the others    
     public void selectKey(int keyNum)

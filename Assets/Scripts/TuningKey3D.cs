@@ -13,6 +13,8 @@ public class TuningKey3D : MonoBehaviour
     void Start() 
     {
         rotation = (float)Random.Range(-600f, 600.0f);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 
+            rotation, transform.localEulerAngles.z);
     }
 
     void Update() 
@@ -21,8 +23,7 @@ public class TuningKey3D : MonoBehaviour
             
             rotation += Input.GetAxis("Mouse ScrollWheel") * -50f;
             transform.localEulerAngles = new Vector3(
-                transform.localEulerAngles.x, 
-                rotation, 
+                transform.localEulerAngles.x, rotation, 
                 transform.localEulerAngles.z);
 
             if (Input.GetAxis("Mouse ScrollWheel") != 0)
