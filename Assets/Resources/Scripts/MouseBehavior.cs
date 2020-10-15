@@ -19,7 +19,7 @@ public class MouseBehavior : MonoBehaviour
     void Update()
     {
         /////////////////////////// SCROLL BEHAVIOR //////////////////////////////
-        if (scrollDelta() != 0) {
+        /*if (scrollDelta() != 0) {
             _scrollDelta += Mathf.Sign(scrollDelta());
             //Debug.Log ("scrollDelta " + _scrollDelta);
             if (Mathf.Abs(_scrollDelta) >= _swapThreshold) {
@@ -27,7 +27,8 @@ public class MouseBehavior : MonoBehaviour
                 _scrollDelta = 0;
                 Debug.Log("Swap " + scrolled);
             }
-        }
-        _scrollPrev = Input.mouseScrollDelta.y;
+        }*/
+        //_scrollPrev = Input.mouseScrollDelta.y;
+
     }
 }

@@ -7,22 +7,32 @@ public class TuningKey : MonoBehaviour
     public int keyNum = 0;
     public bool selected = true; //CURRENTLY DEFAULTS TRUE
     public TuningManager manager;
-    //public LinkedList<Texture2D> sprites = new LinkedList<Texture2D>();
-
-    private Sprite[] sprites = new Sprite[5];
+    public Sprite[] sprites = new Sprite[5];
     private int currentSprite = 0;
+    //private int loopSprite (int index) => manager.goodMod(sprites.Length, index);
+    /*
+    5 = 0
+    6 = 1
+    7 = 2
+    8 = 3
+    9 = 4
+    10 = 0
 
-    private int loopSprite (int index) => sprites.Length % index;
+    -1 = 4
+    -2 = 3
+    -3 = 2
+    -4 = 1
+    -5 = 0
+    */
 
     void Start() {
         randomizeSprite();
-        loadSprites();
-        Debug.Log(-1 % 5);
+        //Debug.Log(manager.goodMod(-6, 5).ToString());
     }
 
     void Update() {
         ///////////////////////////// UPDATE SPRITE //////////////////////////////
-        if (manager.mouse.scrolled != 0 && selected) {
+        /*if (manager.mouse.scrolled != 0 && selected) {
             currentSprite += manager.mouse.scrolled;
             if (currentSprite >= sprites.Length || currentSprite < 0) {
                 Debug.Log("Wrap index");
@@ -31,21 +41,14 @@ public class TuningKey : MonoBehaviour
             Debug.Log("Setting sprite " + currentSprite);
             GetComponent<SpriteRenderer>().sprite = sprites[currentSprite];
             manager.mouse.scrolled = 0;
+        }*/
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0) {
+            currentSprite = (int)manager.smoothIndex(currentSprite);
+            manager.goodMod(currentSprite, sprites.Length);
         }
-        
+
         ///////////////////////////// UPDATE PITCH //////////////////////////////
-    }
-    
-    void loadSprites() {
-        for (int i = 0; i < sprites.Length; i++) {
-            //Debug.Log("Added sprite " + i);
-            sprites[i] = Resources.Load<Sprite>("Sprites/TuningKeys_" + i);
-        }
-        /*sprites[0] = Resources.Load<Texture2D>("Sprites/TuningKeys_0");
-        sprites[1] = Resources.Load<Texture2D>("Sprites/TuningKeys_1");
-        sprites[2] = Resources.Load<Texture2D>("Sprites/TuningKeys_2");
-        sprites[3] = Resources.Load<Texture2D>("Sprites/TuningKeys_3");
-        sprites[4] = Resources.Load<Texture2D>("Sprites/TuningKeys_4");*/
     }
 
     Sprite randomizeSprite() {
