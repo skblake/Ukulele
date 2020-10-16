@@ -8,6 +8,7 @@ public class TuningKey3D : MonoBehaviour
     public bool selected = false;
     public TuningManager manager;
     public float rotation;
+    public float pitch;
 
 
     void Start() 
@@ -20,7 +21,6 @@ public class TuningKey3D : MonoBehaviour
     void Update() 
     {
         if (selected) {
-            
             rotation += Input.GetAxis("Mouse ScrollWheel") * -50f;
             transform.localEulerAngles = new Vector3(
                 transform.localEulerAngles.x, rotation, 
@@ -39,15 +39,13 @@ public class TuningKey3D : MonoBehaviour
     {
         Debug.Log("mouse enter");
         selected = true;
+        manager.selectedKey = keyNum;
     }
 
     void OnMouseExit() 
     {
         Debug.Log("Mouse exit");
         selected = false;
-    }
-
-    void OnMouseOver() {
-        Debug.Log("Mouse is over");
+        manager.selectedKey = 0;
     }
 }

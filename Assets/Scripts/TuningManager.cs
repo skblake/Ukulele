@@ -6,8 +6,10 @@ public class TuningManager : MonoBehaviour
 {
     public float currentSpriteIndexSmooth;
     public int tuningVariable = 1;
-    public List<GameObject> keys;
-    public List<GameObject> strings;
+    public int selectedKey = 0;
+    public GameObject[] keys = new GameObject[4];
+    public GameObject[] strings = new GameObject[4];
+    public AudioSource[] sounds = new AudioSource[4];
 
     void Start()
     {
@@ -17,10 +19,10 @@ public class TuningManager : MonoBehaviour
     void Update()
     {
         /////////////////////////////// CONTROLS /////////////////////////////////
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            strum();
-        } else if (Input.GetKeyDown(KeyCode.Return)) {
+        if (Input.GetKeyDown(KeyCode.Return)) {
             strumAll();
+        } else if (Input.GetKeyDown(KeyCode.Space) && selectedKey != 0) {
+            strum();
         }
 
     }
@@ -37,7 +39,8 @@ public class TuningManager : MonoBehaviour
     }
 
     void strum() {
-        Debug.Log("Strum");
+        Debug.Log("Strum " + selectedKey);
+        sounds[selectedKey - 1].Play();
     }
 
     void strumAll() {
