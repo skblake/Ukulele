@@ -8,8 +8,6 @@ public class TuningKey3D : MonoBehaviour
     public bool selected = false;
     public TuningManager manager;
     public float rotation;
-    public float pitch;
-
 
     void Start() 
     {
@@ -26,12 +24,8 @@ public class TuningKey3D : MonoBehaviour
                 transform.localEulerAngles.x, rotation, 
                 transform.localEulerAngles.z);
 
-            if (Input.GetAxis("Mouse ScrollWheel") != 0)
-            {
-                //Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
-            }
-
         ///////////////////////////// UPDATE PITCH //////////////////////////////
+        manager.pitchDelta += Input.GetAxis("Mouse ScrollWheel") / 100f;
         }
     }
 
