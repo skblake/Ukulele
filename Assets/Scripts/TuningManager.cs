@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TuningManager : MonoBehaviour
 {
-    public float currentSpriteIndexSmooth;
-    public int tuningVariable = 1;
     public int selectedKey = 0;
     public float strumDelay = 0.25f;
     public GameObject[] keys = new GameObject[4];
@@ -38,7 +36,6 @@ public class TuningManager : MonoBehaviour
                 newPitch = maxPitch;
             }
             sounds[keyIndex].pitch = newPitch;
-            //Debug.Log("Set pitch of string " + selectedKey + " to " + newPitch);
             pitchDelta = 0;
         }
 
@@ -100,15 +97,13 @@ public class TuningManager : MonoBehaviour
 
     void checkWin() {
         if (!tuned) {
-            Debug.Log("Check win");
-            bool tuned = true;
+            bool tune = true;
             foreach (AudioSource s in sounds) {
                 if (s.pitch > 1.03f || s.pitch < 0.97f) {
                     tuned = false;
                 }
             }
-            Debug.Log("won is " + tuned);
-            won = tuned;
+            won = tune;
         }
     }
     
