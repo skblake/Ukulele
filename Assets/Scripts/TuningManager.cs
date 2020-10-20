@@ -6,9 +6,11 @@ public class TuningManager : MonoBehaviour
 {
     public int selectedKey = 0;
     public float strumDelay = 0.25f;
+    public GameObject winBox;
     public GameObject[] keys = new GameObject[4];
     public StringVibe[] strings = new StringVibe[4];
     public AudioSource[] sounds = new AudioSource[4];
+    public AudioSource[] helpSounds = new AudioSource[4];
     public float minPitch = 0.7f;
     public float maxPitch = 1.3f;
     public float pitchDelta = 0f;
@@ -17,6 +19,7 @@ public class TuningManager : MonoBehaviour
     private bool won = false;
     private bool tuned = false;
     private int keyIndex = -1;
+    private string typed = "";
 
     void Start()
     {
@@ -41,9 +44,32 @@ public class TuningManager : MonoBehaviour
 
         /////////////////////////////// CONTROLS /////////////////////////////////
         if (Input.GetKeyDown(KeyCode.Return)) {
-            StartCoroutine("strumAll", 0f);
+            if (tuned) {
+                randomizePitch();
+                winBox.SetActive(false);
+            } else {
+                StartCoroutine("strumAll", 0f);
+                typed = "";
+            }
         } else if (Input.GetKeyDown(KeyCode.Space) && selectedKey != 0) {
             strum();
+            typed = "";
+        }
+
+        /////////////////// HELP CHECK /////////////////////
+
+        if (Input.GetKeyDown(KeyCode.H)) {
+            typed += "H";
+        } else if (Input.GetKeyDown(KeyCode.E)) {
+            typed += "E";
+        } else if (Input.GetKeyDown(KeyCode.L)) {
+            typed += "L";
+        } else if (Input.GetKeyDown(KeyCode.P)) {
+            typed += "P";
+        }
+
+        if (typed == "HELP") {
+            StartCoroutine("strumInTune");
         }
 
         ///////////// WIN CHECK ///////////
@@ -105,7 +131,7 @@ public class TuningManager : MonoBehaviour
             bool tune = true;
             foreach (AudioSource s in sounds) {
                 if (s.pitch > 1.03f || s.pitch < 0.97f) {
-                    tuned = false;
+                    tune = false;
                 }
             }
             won = tune;
@@ -117,12 +143,34 @@ public class TuningManager : MonoBehaviour
             s.pitch = Random.Range(minPitch, maxPitch);
             Debug.Log ("Pitch set " + s.pitch);
         }
+        won = false; 
+        tuned = false;
     }
 
     void gameEnd() {
-        Debug.Log ("Game won");
+        winBox.SetActive(true);
         strumDelay = 0.05f;
         vol = 0.8f;
         StartCoroutine("strumAll", 1.25f);
+        strumDelay = 0.25f;
+    }
+
+    IEnumerator strumInTune() {
+        typed = "";
+        strumDelay = 0.8f;
+        float elapsedTime = 0f;
+        ///// STRUM ALL STRINGS /////
+        for (int i = 0; i < keys.Length; i++) {
+            while (elapsedTime <= strumDelay) {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            strumDelay = 0.25f;
+            helpSounds[i].PlayOneShot(helpSounds[i].clip, vol);
+            strings[i].strum = true;
+            elapsedTime = 0f;
+            yield return null;
+        }
+        yield return null; 
     }
 }

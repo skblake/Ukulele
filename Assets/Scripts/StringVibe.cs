@@ -15,12 +15,12 @@ public class StringVibe : MonoBehaviour
     {
         lineRenderer = this.GetComponent<LineRenderer>();
         strum = false;
-        animationCurve = new AnimationCurve();
+        //animationCurve = new AnimationCurve();
         anim = new List<float>();
-        animationCurve.AddKey(0f, 0f);
-        animationCurve.AddKey(100f, 1f);
-        animationCurve.AddKey(199f, 0f);
-        curveCenter = 100f;
+        //animationCurve.AddKey(0f, 0f);
+        //animationCurve.AddKey(175f, 1f);
+        //animationCurve.AddKey(199f, 0f);
+        //curveCenter = 100f;
     }
 
     void Update()
@@ -63,9 +63,10 @@ public class StringVibe : MonoBehaviour
         amp = 0.05f;
     }
 
-    public void moveCurve(float newCenter)
-    {
-        animationCurve.MoveKey((int)curveCenter, new Keyframe(newCenter, 100f));
-        curveCenter = newCenter;
-    }
+    //public void moveCurve(float newCenter)
+    //{
+    //    animationCurve.MoveKey((int)curveCenter, new Keyframe(newCenter, 100f));
+    //    curveCenter = newCenter;
+    //}
+    
 }
