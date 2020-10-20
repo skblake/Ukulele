@@ -9,7 +9,7 @@ public class StringVibe : MonoBehaviour
     public float amp;
     public AnimationCurve animationCurve;
     public List<float> anim;
-    public float curveCenter;
+    public float curveCenter = 100f;
 
     void Start()
     {
@@ -30,7 +30,8 @@ public class StringVibe : MonoBehaviour
             strum = false;
         }
 
-        DrawTravellingSineWave(new Vector3(0, 0, 0), 1, 20, 50);
+        DrawTravellingSineWave(new Vector3(0, 0, 0), .5f, 20, 150);
+            // older values: (new Vector3(0, 0, 0), 1, 20, 50) 
         transform.localScale = new Vector3(0.5f, amp, 1f);
         amp = amp * 0.99f;
 
@@ -62,7 +63,7 @@ public class StringVibe : MonoBehaviour
         amp = 0.05f;
     }
 
-    void moveCurve(float newCenter)
+    public void moveCurve(float newCenter)
     {
         animationCurve.MoveKey((int)curveCenter, new Keyframe(newCenter, 100f));
         curveCenter = newCenter;

@@ -65,10 +65,15 @@ public class TuningManager : MonoBehaviour
 
     }
 
-    void strum() {
-        Debug.Log("Strum " + selectedKey);
-        sounds[keyIndex].PlayOneShot(sounds[keyIndex].clip, vol);
-        strings[keyIndex].strum = true;
+    public void strum(int toStrum = -1) {
+        if (toStrum == -1) {
+            toStrum = keyIndex;
+        } else {
+            toStrum--;
+        }
+        //Debug.Log("Strum " + selectedKey);
+        sounds[toStrum].PlayOneShot(sounds[toStrum].clip, vol);
+        strings[toStrum].strum = true;
     }
 
     IEnumerator strumAll(float pause) {
